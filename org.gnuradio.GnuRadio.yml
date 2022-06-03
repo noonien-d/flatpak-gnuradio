@@ -1,0 +1,64 @@
+app-id: org.gnuradio.GnuRadio
+runtime: org.kde.Platform
+runtime-version: '5.15-21.08'
+sdk: org.kde.Sdk
+command: gnuradio-companion
+finish-args:
+  - --device=all
+  - --device=dri
+  - --filesystem=home
+  - --persist=.cache/grc_gnuradio
+  - --persist=.gnuradio
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --socket=x11
+  - --env=GR_CONF_GRC_GLOBAL_BLOCKS_PATH=/app/share/gnuradio/grc/blocks
+cleanup:
+  - /share/man
+modules:
+  - "modules/fftw-3.3.6.json"
+  
+  - "modules/qwt.json"
+  
+  - "modules/libsdl-1.2.15.json"
+  
+  - "modules/boost.json"
+
+  - "modules/spdlog.json"
+  
+  - "modules/libyaml.yml"
+  
+  - "modules/python3-lapack-numpy-scipy.json"
+  
+  - "modules/python3-modules.json"
+  
+  - "modules/python3-matplotlib.json"
+ 
+  - "modules/python3-pyqt5.yml"
+   
+  - name: volk
+    buildsystem: cmake
+    builddir: true
+    config-opts:
+      - "-DCMAKE_BUILD_TYPE=Release"
+    sources:
+      - type: git
+        url: https://github.com/gnuradio/volk.git
+
+  - name: gnuradio
+    buildsystem: cmake
+    builddir: true
+    post-install:
+      - install -Dm644 ../grc/scripts/freedesktop/gnuradio_logo_icon-square.svg /app/share/icons/hicolor/scalable/apps/gnuradio-grc.svg
+      - mv /app/share/mime/packages/gnuradio-grc.xml /app/share/mime/packages/org.gnuradio.gnuradio.xml
+    config-opts:
+      - "-DCMAKE_BUILD_TYPE=Release"
+      - "-Dpybind11_DIR=/app/lib/python3.9/site-packages/pybind11/share/cmake/pybind11/"
+      - "-DGR_PKG_DATA_DIR=/app/share/gnuradio/"
+    sources:
+      - type: git
+        branch: maint-3.10
+        url: https://github.com/gnuradio/gnuradio.git
+

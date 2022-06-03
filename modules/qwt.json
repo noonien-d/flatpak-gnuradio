@@ -1,0 +1,19 @@
+{
+			"name": "qwt",
+			"cleanup": [ "/features", "/plugins", "/share" ],
+			"sources": [
+				{
+					"type": "archive",
+					"url": "https://netcologne.dl.sourceforge.net/project/qwt/qwt/6.2.0/qwt-6.2.0.tar.bz2",
+					"sha1": "51b7d131752251dd2e372afa8d8909ea15fa5c9c"
+				},
+				{
+					"type": "script",
+					"commands": [
+						"sed -i \"s/^\\s*QWT_INSTALL_PREFIX.*$/QWT_INSTALL_PREFIX=\\/app/g\" qwtconfig.pri",
+						"qmake"
+					],
+					"dest-filename": "configure"
+				}
+			]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "python3-matplotlib",
+    "buildsystem": "simple",
+    "build-commands": [
+        "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} matplotlib"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/89/0c/653aec68e9cfb775c4fbae8f71011206e5e7fe4d60fcf01ea1a9d3bc957f/matplotlib-3.0.2.tar.gz",
+            "sha256": "c94b792af431f6adb6859eb218137acd9a35f4f7442cea57e4a59c54751c36af"
+        }
+    ]
+}
